@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fruits</title>
+    <link rel="website icon" type="png" href="/Users/apple/Desktop/expo2.0/logo ns.jpeg">
+</head>
+<style>
+     body {
+    margin: 0;
+    font-family: Arial;
+    background: #c0c0c0;
+}
+
+.navbar {
+    background: #0A2540;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+}
+
+.logo {
+            color: white;
+            font-size:40px;
+            font-weight: bold;
+}
+img{
+            width: 30px;
+            height: 30px;
+}
+#search {
+    width: 250px;
+    padding: 8px;
+    border-radius: 20px;
+    border: none;
+}
+.products {
+    margin: 50px;
+    display: grid;
+    justify-content: space-around;
+    grid-template-columns: repeat(3,1fr);
+}
+
+.product {
+    width: 200px;
+    background: white;
+    padding: 15px;
+    margin: 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #aaa;
+    text-align: center;
+    transition: transform 0.5s ease;
+}
+
+.product img {
+    width: 100%;
+    height: 150px;
+    object-fit: contain;
+}
+
+button {
+    padding: 8px 15px;
+    border: none;
+    background: #0A2540;
+    color: white;
+    cursor: pointer;
+    border-radius: 6px;
+}
+.product:hover {
+transform: translateY(-10px);
+}
+
+</style>
+<body>
+    <nav class="navbar">
+        <div class="logo"><a href="file:///Users/apple/Desktop/expo2.0/home.html"><img src="/Users/apple/Desktop/expo2.0/logo ns.jpeg" alt=""></a> FRUITS</div>
+        <input type="text" id="search" placeholder="Search products...">
+        <a href="file:///Users/apple/Desktop/expo2.0/cart.html"><img src="/Users/apple/Desktop/expo2.0/cart.jpeg" alt=""></a>
+
+        
+    </nav>
+
+        <section class="products" id="product-list">
+
+        <div class="product">
+            <img src="/Users/apple/Desktop/expo2.0/fruits img/apple.jpeg" alt="">
+            <h3>Apple</h3>
+            <p class="price">₹120/kg</p>
+            <button onclick="addToCart('Apple', 120)">Add to Cart</button>
+        </div>
+
+        <div class="product">
+            <img src="/Users/apple/Desktop/expo2.0/fruits img/pineapple.jpeg" alt="">
+            <h3>Pineapple</h3>
+            <p class="price">₹60/kg</p>
+            <button onclick="addToCart('Pineapple', 60)">Add to Cart</button>
+        </div>
+
+        <div class="product">
+            <img src="/Users/apple/Desktop/expo2.0/fruits img/mango.jpeg" alt="">
+            <h3>Mango</h3>
+            <p class="price">₹30</p>
+            <button onclick="addToCart('Mango', 30)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="/Users/apple/Desktop/expo2.0/fruits img/blackgrapes.jpeg" alt="">
+            <h3>Black Grapes</h3>
+            <p class="price">₹30</p>
+            <button onclick="addToCart('Black Grapes', 30)">Add to Cart</button>
+        </div>
+         
+        <div class="product">
+            <img src="/Users/apple/Desktop/expo2.0/fruits img/kivi.jpeg" alt="">
+            <h3>Kiwi</h3>
+            <p class="price">₹120/kg</p>
+            <button onclick="addToCart('Kiwi', 120)">Add to Cart</button>
+        </div>
+
+        <div class="product">
+            <img src="/Users/apple/Desktop/expo2.0/fruits img/watermelon.jpeg" alt="">
+            <h3>Watermelon</h3>
+            <p class="price">₹60/kg</p>
+            <button onclick="addToCart('Watermelon', 60)">Add to Cart</button>
+        </div>
+
+        <div class="product">
+            <img src="/Users/apple/Desktop/expo2.0/fruits img/grapes.jpeg" alt="">
+            <h3>Grapes</h3>
+            <p class="price">₹30</p>
+            <button onclick="addToCart('Grapes', 30)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="/Users/apple/Desktop/expo2.0/fruits img/orange.jpeg" alt="">
+            <h3>Orange</h3>
+            <p class="price">₹30</p>
+            <button onclick="addToCart('Orange', 30)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="/Users/apple/Desktop/expo2.0/fruits img/banana.jpeg" alt="">
+            <h3>Banana</h3>
+            <p class="price">₹30</p>
+            <button onclick="addToCart('Banana', 30)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="/Users/apple/Desktop/expo2.0/fruits img/strawberry.jpeg" alt="">
+            <h3>Strawberry</h3>
+            <p class="price">₹120/kg</p>
+            <button onclick="addToCart('Strawberry', 120)">Add to Cart</button>
+        </div>
+
+    </section>
+
+</body>
+<script>
+    function addToCart(name, price, img) {
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    
+        
+        let existing = cart.find(item => item.name === name);
+    
+        if (existing) {
+            existing.quantity++;
+        } else {
+            cart.push({
+                id: Date.now(),
+                name: name,
+                price: price,
+                quantity: 1
+            });
+        }
+    
+        localStorage.setItem("cart", JSON.stringify(cart));
+        alert(name + " added to cart!");
+    }
+</script>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart Page</title>
+    <link rel="website icon" type="png" href="/Users/apple/Desktop/expo2.0/logo ns.jpeg">
+
+    <style>
+        .cart-item{
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        button{
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Your Cart</h2>
+    <div id="cart-items"></div>
+    <h3>Total: ₹<span id="cart-total">0</span></h3>
+
+    <script>
+        
+        function loadCart() {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            let container = document.getElementById("cart-items");
+            let total = 0;
+
+            container.innerHTML = "";
+
+            cart.forEach(item => {
+                total += item.price * item.quantity;
+
+                container.innerHTML += `
+                    <div class="cart-item">
+
+                        <div style="flex: 1;">
+                            <h3>${item.name}</h3>
+                            <p>₹${item.price}</p>
+
+                            <div>
+                                <button onclick="changeQty(${item.id}, -1)">−</button>
+                                <span style="padding:10px;">${item.quantity}</span>
+                                <button onclick="changeQty(${item.id}, 1)">+</button>
+                            </div>
+                        </div>
+
+                        <button onclick="removeItem(${item.id})" style="color:red;">
+                            Remove
+                        </button>
+                    </div>
+                `;
+            });
+
+            document.getElementById("cart-total").textContent = total;
+        }
+
+        function changeQty(id, change) {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+            cart = cart.map(item => {
+                if (item.id === id) {
+                    item.quantity += change;
+                    if (item.quantity < 1) item.quantity = 1;
+                }
+                return item;
+            });
+
+            localStorage.setItem("cart", JSON.stringify(cart));
+            loadCart();
+        }
+
+        function removeItem(id) {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            cart = cart.filter(item => item.id !== id);
+
+            localStorage.setItem("cart", JSON.stringify(cart));
+            loadCart();
+        }
+
+        window.onload = loadCart;
+    </script>
+
+</body>
+</html>
